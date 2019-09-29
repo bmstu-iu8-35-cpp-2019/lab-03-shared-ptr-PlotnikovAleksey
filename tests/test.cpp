@@ -54,6 +54,7 @@ TEST(SharedPtr, reset_swap) {
   EXPECT_EQ(sp1.use_count(), 0);
   EXPECT_THROW(*sp1, std::invalid_argument);
 
+  a = new int(2);
   SharedPtr<int> sp2(a);
   int* b = new int(2001);
   sp1 = sp2;
@@ -68,7 +69,7 @@ TEST(SharedPtr, reset_swap) {
   EXPECT_EQ(sp1.use_count(), 1);
   EXPECT_EQ(*sp1, 2);
 
-  SharedPtr<int> sp3(b);
+  SharedPtr<int> sp3(sp2);
 
   EXPECT_EQ(sp3.use_count(), 2);
   EXPECT_EQ(*sp3, 2001);

@@ -119,7 +119,7 @@ class SharedPtr {
   }
 
   void swap(SharedPtr& r) {
-    if (*this != r) std::swap(r, *this);
+    if (data != r.data) std::swap(r, *this);
   }
 
   auto use_count() const -> size_t {
