@@ -28,18 +28,18 @@ TEST(SharedPtr, assign) {
   SharedPtr<int> sp1(a);
   auto sp2 = sp1;
 
-  EXPECT_EQ(sp2*, 28);
+  EXPECT_EQ(*sp2, 28);
   EXPECT_EQ(sp1.use_count(), 2);
   EXPECT_EQ(sp1.use_count(), sp2.use_count());
 
-  int b* = new int(0);
+  int* b = new int(0);
   SharedPtr<int> sp3(b);
 
   EXPECT_EQ(sp3.use_count(), 1);
 
   sp1 = sp3;
 
-  EXPECT_EQ(sp3.use_count, 2);
+  EXPECT_EQ(sp3.use_count(), 2);
   EXPECT_EQ(*sp1, 0);
 }
 
@@ -52,7 +52,7 @@ TEST(SharedPtr, reset_swap) {
   sp1.reset();
 
   EXPECT_EQ(sp1.use_count(), 0);
-  EXPECT_THROW(*sp1);
+  EXPECT_THROW(*sp1, std::exception);
 
   SharedPtr<int> sp2(a);
   int* b = new int(2001);

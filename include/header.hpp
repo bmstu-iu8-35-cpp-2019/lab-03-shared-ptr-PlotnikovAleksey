@@ -6,6 +6,7 @@
 #include <atomic>
 #include <exception>
 #include <iostream>
+#include <utility>
 
 class Counter {
  private:
@@ -47,7 +48,7 @@ class SharedPtr {
     data = r.data;
   }
 
-  SharedPtr(T* ptr) {
+  explicit SharedPtr(T* ptr) {
     control = new Counter();
     control->inc();
     data = ptr;
