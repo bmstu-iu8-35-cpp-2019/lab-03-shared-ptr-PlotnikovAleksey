@@ -7,8 +7,7 @@ TEST(SharedPtr, init) {
   SharedPtr<int> sp1;
   EXPECT_EQ(sp1, false);
 
-  int* a = new int(13);
-  SharedPtr<int> sp2(a);
+  SharedPtr<int> sp2(new int(13));
 
   EXPECT_EQ(sp2, true);
   EXPECT_EQ(*sp2, 13);
@@ -24,16 +23,14 @@ TEST(SharedPtr, init) {
 }
 
 TEST(SharedPtr, assign) {
-  int* a = new int(28);
-  SharedPtr<int> sp1(a);
+  SharedPtr<int> sp1(new int(28));
   auto sp2 = sp1;
 
   EXPECT_EQ(*sp2, 28);
   EXPECT_EQ(sp1.use_count(), 2);
   EXPECT_EQ(sp1.use_count(), sp2.use_count());
 
-  int* b = new int(0);
-  SharedPtr<int> sp3(b);
+  SharedPtr<int> sp3(new int(0));
 
   EXPECT_EQ(sp3.use_count(), 1);
 
@@ -44,8 +41,7 @@ TEST(SharedPtr, assign) {
 }
 
 TEST(SharedPtr, reset_swap) {
-  int* a = new int(2);
-  SharedPtr<int> sp1(a);
+  SharedPtr<int> sp1(new int(2));
 
   EXPECT_EQ(sp1.use_count(), 1);
 
@@ -54,15 +50,13 @@ TEST(SharedPtr, reset_swap) {
   EXPECT_EQ(sp1.use_count(), 0);
   EXPECT_THROW(*sp1, std::invalid_argument);
 
-  a = new int(2);
-  SharedPtr<int> sp2(a);
-  int* b = new int(2001);
+  SharedPtr<int> sp2(new int(2));
   sp1 = sp2;
 
   EXPECT_EQ(sp2.use_count(), 2);
   EXPECT_EQ(*sp2, 2);
 
-  sp2.reset(b);
+  sp2.reset(new int(2001));
 
   EXPECT_EQ(sp2.use_count(), 1);
   EXPECT_EQ(*sp2, 2001);
