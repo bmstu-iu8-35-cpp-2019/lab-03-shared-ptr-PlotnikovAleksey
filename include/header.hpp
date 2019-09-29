@@ -85,7 +85,7 @@ class SharedPtr {
   operator bool() const { return control != nullptr; }
 
   auto operator*() const -> T& {
-    if (*this == false) throw std::exception("no object");
+    if (*this == false) throw std::invalid_argument("no object");
     return *data;
   }
 

@@ -52,7 +52,7 @@ TEST(SharedPtr, reset_swap) {
   sp1.reset();
 
   EXPECT_EQ(sp1.use_count(), 0);
-  EXPECT_THROW(*sp1, std::exception);
+  EXPECT_THROW(*sp1, std::invalid_argument);
 
   SharedPtr<int> sp2(a);
   int* b = new int(2001);
