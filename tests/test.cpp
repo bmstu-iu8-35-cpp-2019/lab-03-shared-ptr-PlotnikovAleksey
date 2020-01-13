@@ -77,3 +77,26 @@ TEST(SharedPtr, reset_swap) {
   EXPECT_EQ(sp1.use_count(), 2);
   EXPECT_EQ(*sp1, 2001);
 }
+
+TEST(SharedPtr, moving) {
+  SharedPtr<double> sp1(new double(20.1));
+  SharedPtr<double> sp2(sp1);
+
+  EXPECT_EQ(sp2.use_count(), 2);
+  EXPECT_EQ(*sp2, 20.1);
+  EXPECT_EQ(sp1.use_count(), 2);
+  EXPECT_EQ(*sp2, 20.1);
+
+  SharedPtr<double> sp3(std::move(sp1));
+
+  EXPECT_EQ(sp1.use_count(), 0);
+  EXPECT_EQ(sp3.use_count(), 2);
+  EXPECT_EQ(*sp3, 20.1);
+
+  sp1 = std::move(sp2);
+
+  EXPECT_EQ(sp3.use_count(), 2);
+  EXPECT_EQ(sp2.use_count(), 0);
+  EXPECT_EQ(sp1.use_count(), 2);
+  EXPECT_EQ(*sp1, 20.1);
+}

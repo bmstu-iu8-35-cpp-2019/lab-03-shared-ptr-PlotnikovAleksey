@@ -44,8 +44,9 @@ class SharedPtr {
 
   SharedPtr(SharedPtr&& r) {
     control = r.control;
-    if (r == true) control->inc();
+    r.control = nullptr;
     data = r.data;
+    r.data = nullptr;
   }
 
   explicit SharedPtr(T* ptr) {
@@ -78,7 +79,8 @@ class SharedPtr {
     }
     control = r.control;
     data = r.data;
-    if (*this == true) control->inc();
+    r.control = nullptr;
+    r.data = nullptr;
     return *this;
   }
 
